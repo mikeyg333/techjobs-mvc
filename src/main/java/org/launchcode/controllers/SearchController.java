@@ -27,15 +27,20 @@ public class SearchController {
     public String search(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
         if (searchType.equals("all")) {
             ArrayList<HashMap<String, String>> jobs = JobData.findByValue(searchTerm);
+            Integer jobCount = jobs.size();
             model.addAttribute("jobs", jobs);
+            model.addAttribute("jobCount", jobCount);
+            model.addAttribute("searchTerm", searchTerm);
             model.addAttribute("columns", ListController.columnChoices);
             return "search";
         } else {
             ArrayList<HashMap<String, String>> jobs = JobData.findByColumnAndValue(searchType, searchTerm);
+            Integer jobCount = jobs.size();
             model.addAttribute("jobs", jobs);
+            model.addAttribute("jobCount", jobCount);
+            model.addAttribute("searchTerm", searchTerm);
             model.addAttribute("columns", ListController.columnChoices);
             return "search";
         }
     }
-
 }
